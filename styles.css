@@ -1,0 +1,27 @@
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+    width: 600px;
+}
+
+.row{
+    display: flex;
+    justify-content: space-around;
+}
+
+.col#display{
+    display:flex;
+    align-items: center;
+    border: 1px black solid;
+    height: 50px;
+    margin: auto;
+    width: 95%;
+    justify-content: flex-end;
+}
+
+.col input[type="button"]{
+    width: 100px;
+    font-weight: bold;
+}

@@ -53,7 +53,12 @@ window.addEventListener('keydown', (e) => {
 
 })
 
-function add(){
+let add = () => first + second
+let subtract = () => first - second
+let multiply = () => first * second
+let divide = () => first / second
+
+function calcs(calc){
 
     if(!first)
         saveFirstNumber()
@@ -62,68 +67,10 @@ function add(){
         if(!second && first){
             saveSecondNumber()
             if(second && first){
-                let result = first + second
+                let result = calc()
                 saveResult(result)
             }
-        }
-            
-
-    }
-
-}
-
-function subtract(){
-
-    if(!first)
-        saveFirstNumber()
-    else{
-
-        if(!second && first){
-            saveSecondNumber()
-            if(second && first){
-                let result = first - second
-                saveResult(result)
-            }
-        }
-            
-
-    }
-
-}
-
-function multiply(){
-
-    if(!first)
-        saveFirstNumber()
-    else{
-
-        if(!second && first){
-            saveSecondNumber()
-            if(second && first){
-                let result = first * second
-                saveResult(result)
-            }
-        }
-            
-
-    }
-
-}
-
-function divide(){
-
-    if(!first)
-        saveFirstNumber()
-    else{
-
-        if(!second && first){
-            saveSecondNumber()
-            if(second && first){
-                let result = first / second
-                saveResult(result)
-            }
-        }
-            
+        }     
 
     }
 
@@ -138,18 +85,18 @@ function operate(operand){
 
     switch(operand){
         case "+":
-            add()
+            calcs(add)
             break
         case "-":
-            subtract()
+            calcs(subtract)
             break
         case "x":
         case "*":
-            multiply()
+            calcs(multiply)
             break
         case "÷":
         case "/":
-            divide()
+            calcs(divide)
             break
         case "=":
             
