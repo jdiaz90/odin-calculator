@@ -26,16 +26,23 @@ buttonOperands.forEach(button => {
 window.addEventListener('keydown', (e) => {
 
     const character = getKeyboardNumbers().find(element => element === e.key)  
-    if(character)
-        display.textContent = `${display.textContent}${character}`  
+    if(character){
+
+        if(count == 0) 
+        display.textContent = '' 
+
+    display.textContent = `${display.textContent}${e.key}`
+    count++
+
+    }  
 
 })
 
 window.addEventListener('keydown', (e) => {
-
+    
     const operand = getKeyboardOperands().find(element => element === e.key)  
     if(operand)
-          operate(e.key)
+        operate(e.key)
 
 
 })
@@ -131,9 +138,11 @@ function operate(operand){
             subtract()
             break
         case "x":
+        case "*":
             multiply()
             break
         case "÷":
+        case "/":
             divide()
             break
         case "=":
@@ -155,7 +164,9 @@ function getKeyboardNumbers(){
 
 function getKeyboardOperands(){
     let keys = [...document.querySelectorAll('input[type="button"].operand')]
-    return keys.map(key => key.value) 
+    keys = keys.map(key => key.value) 
+    keys.push('*', '/')
+    return keys
 }
 
 function saveFirstNumber(){
