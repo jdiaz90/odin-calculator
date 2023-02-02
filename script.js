@@ -1,7 +1,7 @@
 const buttonNumbers = document.querySelectorAll('input[type="button"].number')
 const buttonOperands = document.querySelectorAll('input[type="button"].operand')
 const display = document.querySelector('#display')
-let temp
+let first, second, previous
 let count = 0
 
 buttonNumbers.forEach(button => {
@@ -25,58 +25,103 @@ buttonOperands.forEach(button => {
 
 window.addEventListener('keydown', (e) => {
 
-    const character = getKeyboardKeys().find(element => element === e.key)  
+    const character = getKeyboardNumbers().find(element => element === e.key)  
     if(character)
         display.textContent = `${display.textContent}${character}`  
 
 })
 
+window.addEventListener('keydown', (e) => {
+
+    const operand = getKeyboardOperands().find(element => element === e.key)  
+    if(operand)
+          operate(e.key)
+
+
+})
+
 function add(){
 
-    if(!temp) saveFirstNumber()
-    else {
+    if(!first)
+        saveFirstNumber()
+    else{
 
-        let result = temp + parseInt(display.textContent)
-        saveResult(result)
+        if(!second && first){
+            saveSecondNumber()
+            if(second && first){
+                let result = first + second
+                saveResult(result)
+            }
+        }
+            
 
     }
+
 }
 
 function subtract(){
 
-    if(!temp) saveFirstNumber()
-    else {
+    if(!first)
+        saveFirstNumber()
+    else{
 
-        let result = temp - parseInt(display.textContent)
-        saveResult(result)
+        if(!second && first){
+            saveSecondNumber()
+            if(second && first){
+                let result = first - second
+                saveResult(result)
+            }
+        }
+            
 
     }
+
 }
 
 function multiply(){
 
-    if(!temp) saveFirstNumber()
-    else {
+    if(!first)
+        saveFirstNumber()
+    else{
 
-        let result = temp * parseInt(display.textContent)
-        saveResult(result)
+        if(!second && first){
+            saveSecondNumber()
+            if(second && first){
+                let result = first * second
+                saveResult(result)
+            }
+        }
+            
 
     }
+
 }
 
 function divide(){
 
-    if(!temp) saveFirstNumber()
-    else {
+    if(!first)
+        saveFirstNumber()
+    else{
 
-        let result = temp / parseInt(display.textContent)
-        saveResult(result)
+        if(!second && first){
+            saveSecondNumber()
+            if(second && first){
+                let result = first / second
+                saveResult(result)
+            }
+        }
+            
 
     }
-    
+
 }
 
 function operate(operand){
+
+    const temp = operand
+
+    if(previous)
+        operand = previous
 
     switch(operand){
         case "+":
@@ -92,27 +137,47 @@ function operate(operand){
             divide()
             break
         case "=":
-        
+            
             break
     }
 
+    previous = temp
     count = 0
 
 }
 
-function getKeyboardKeys(){
+function getKeyboardNumbers(){
 
-    let keys = [...document.querySelectorAll('input[type="button"]')]
+    let keys = [...document.querySelectorAll('input[type="button"].number')]
     return keys.map(key => key.value)
 
 }
 
+function getKeyboardOperands(){
+    let keys = [...document.querySelectorAll('input[type="button"].operand')]
+    return keys.map(key => key.value) 
+}
+
 function saveFirstNumber(){
-    temp = parseInt(display.textContent)
-    display.textContent = ''
+    if(display.textContent){
+        first = parseInt(display.textContent)
+        count = 0
+    }
+
+}
+
+function saveSecondNumber(){
+    if(display.textContent){
+        second = parseInt(display.textContent)
+        count = 0
+    }
+
 }
 
 function saveResult(result){
-    temp = result
+    first = result
     display.textContent = result
+    second = null
+    result = null
+    count = 0
 }
