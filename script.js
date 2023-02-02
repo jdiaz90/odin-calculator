@@ -1,5 +1,6 @@
 const buttonNumbers = document.querySelectorAll('input[type="button"].number')
 const buttonOperands = document.querySelectorAll('input[type="button"].operand')
+const buttonDecimal = document.querySelector('input[type="button"]#decimal')
 const display = document.querySelector('#display')
 let first, second, previous
 let count = 0
@@ -8,31 +9,37 @@ buttonNumbers.forEach(button => {
 
     button.addEventListener('click', (e) => {
 
-        if(count == 0) 
-            display.textContent = '' 
+        clearDisplay() 
 
         display.textContent = `${display.textContent}${e.target.value}`
         count++
     })
     
-});
+})
 
 buttonOperands.forEach(button => {
 
     button.addEventListener('click', (e) => operate(e.target.value))
     
-});
+})
+
+buttonDecimal.addEventListener('click', () => {
+
+    clearDisplay()  
+    writeDecimal()
+
+})
+
 
 window.addEventListener('keydown', (e) => {
 
     const character = getKeyboardNumbers().find(element => element === e.key)  
     if(character){
 
-        if(count == 0) 
-        display.textContent = '' 
+        clearDisplay() 
 
-    display.textContent = `${display.textContent}${e.key}`
-    count++
+        display.textContent = `${display.textContent}${e.key}`
+        count++
 
     }  
 
@@ -43,7 +50,6 @@ window.addEventListener('keydown', (e) => {
     const operand = getKeyboardOperands().find(element => element === e.key)  
     if(operand)
         operate(e.key)
-
 
 })
 
@@ -171,7 +177,7 @@ function getKeyboardOperands(){
 
 function saveFirstNumber(){
     if(display.textContent){
-        first = parseInt(display.textContent)
+        first = parseFloat(display.textContent)
         count = 0
     }
 
@@ -179,7 +185,7 @@ function saveFirstNumber(){
 
 function saveSecondNumber(){
     if(display.textContent){
-        second = parseInt(display.textContent)
+        second = parseFloat(display.textContent)
         count = 0
     }
 
@@ -191,4 +197,39 @@ function saveResult(result){
     second = null
     result = null
     count = 0
+}
+
+function checkDecimal(){
+
+    const displayArray = display.textContent.split('')
+    let count = displayArray.reduce((obj, item) =>  {
+        if (!obj[item]) {
+          obj[item] = 0;
+        }
+        obj[item]++;
+        return obj;
+      }, {});
+    
+    if(count['.'] > 0)
+        return true
+    return false
+
+}
+
+function writeDecimal(){
+
+    if(!checkDecimal()){
+
+        if(count == 0) 
+            display.textContent = '0' 
+
+        display.textContent = `${display.textContent}.`
+        count++
+    }
+
+}
+
+function clearDisplay(){
+    if(count == 0) 
+        display.textContent = '' 
 }
