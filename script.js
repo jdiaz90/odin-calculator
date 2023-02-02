@@ -1,34 +1,102 @@
 const buttonNumbers = document.querySelectorAll('input[type="button"].number')
-const buttonOperand = document.querySelectorAll('input[type="button"].operand')
+const buttonOperands = document.querySelectorAll('input[type="button"].operand')
 const display = document.querySelector('#display')
 let temp
-let first
-let second
+let count = 0
 
 buttonNumbers.forEach(button => {
 
     button.addEventListener('click', (e) => {
 
-        display.textContent = `${display.textContent}${e.target.value}`
+        if(count == 0) 
+            display.textContent = '' 
 
+        display.textContent = `${display.textContent}${e.target.value}`
+        count++
     })
     
 });
 
-    window.addEventListener('keydown', (e) => {
+buttonOperands.forEach(button => {
 
-        const character = getKeyboardKeys().find(element => element === e.key)  
-        if(character)
-            display.textContent = `${display.textContent}${character}`  
+    button.addEventListener('click', (e) => operate(e.target.value))
+    
+});
 
-    })
+window.addEventListener('keydown', (e) => {
 
-let add = (a, b) => a + b
-let subtract = (a, b) => a - b
-let multiply = (a, b) => a * b
-let divide = (a, b) => a / b
+    const character = getKeyboardKeys().find(element => element === e.key)  
+    if(character)
+        display.textContent = `${display.textContent}${character}`  
 
-function operate(){
+})
+
+function add(){
+
+    if(!temp) saveFirstNumber()
+    else {
+
+        let result = temp + parseInt(display.textContent)
+        saveResult(result)
+
+    }
+}
+
+function subtract(){
+
+    if(!temp) saveFirstNumber()
+    else {
+
+        let result = temp - parseInt(display.textContent)
+        saveResult(result)
+
+    }
+}
+
+function multiply(){
+
+    if(!temp) saveFirstNumber()
+    else {
+
+        let result = temp * parseInt(display.textContent)
+        saveResult(result)
+
+    }
+}
+
+function divide(){
+
+    if(!temp) saveFirstNumber()
+    else {
+
+        let result = temp / parseInt(display.textContent)
+        saveResult(result)
+
+    }
+    
+}
+
+function operate(operand){
+
+    switch(operand){
+        case "+":
+            add()
+            break
+        case "-":
+            subtract()
+            break
+        case "x":
+            multiply()
+            break
+        case "÷":
+            divide()
+            break
+        case "=":
+        
+            break
+    }
+
+    count = 0
 
 }
 
@@ -37,4 +105,14 @@ function getKeyboardKeys(){
     let keys = [...document.querySelectorAll('input[type="button"]')]
     return keys.map(key => key.value)
 
+}
+
+function saveFirstNumber(){
+    temp = parseInt(display.textContent)
+    display.textContent = ''
+}
+
+function saveResult(result){
+    temp = result
+    display.textContent = result
 }
