@@ -76,3 +76,27 @@ body{
     font-size: 35px;
     border-radius: 10px;
 }
+
+.col input[value="+"]{
+    background-color: greenyellow;
+}
+
+.col input[value="-"]{
+    background-color: #FFCCCB;
+}
+
+.col input[value="x"]{
+    background-color: lightsteelblue;
+}
+
+.col input[value="÷"]{
+    background-color: crimson;
+}
+
+.col input[value="="]{
+    background-color: gainsboro;
+}
+
+.col input[value="."]{
+    background-color: cornsilk;
+}
