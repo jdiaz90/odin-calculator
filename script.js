@@ -3,7 +3,7 @@ const buttonOperands = document.querySelectorAll('input[type="button"].operand')
 const buttonDecimal = document.querySelector('input[type="button"]#decimal')
 const buttonClear = document.querySelector('input[type="button"]#clear')
 const buttonBackspace = document.querySelector('button#backspace')
-const display = document.querySelector('#display')
+const display = document.querySelector('#result')
 let first, second, previous
 let displayLength = 0
 

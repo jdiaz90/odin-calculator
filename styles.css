@@ -8,6 +8,19 @@
     src: url('./fonts/MADE\ Gentle\ PERSONAL\ USE.otf');
 }
 
+body{
+    background-color: black;
+}
+
+.case{
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 750px;
+    margin: auto;
+    background-color:navajowhite;
+}
+
 .calculator {
     display: flex;
     flex-direction: column;
@@ -38,13 +51,18 @@
 .col#display{
     display:flex;
     align-items: center;
-    border: 1px black solid;
+    background-color: white;
+    border: 2px black solid;
     box-sizing: border-box;
-    font-family: 'digital-clock', Courier, monospace;
-    font-size: 50px;
     height: 50px;
     justify-content: flex-end;
     width: 100%;
+}
+
+.col span#result{
+    height: 100%;
+    font-family: 'digital-clock', Courier, monospace;
+    font-size: 50px;
 }
 
 .col input[type="button"], .col.double button{
@@ -53,4 +71,5 @@
     font-family:'made-gentle', Courier, monospace;
     font-weight: bold;
     font-size: 35px;
+    border-radius: 10px;
 }
