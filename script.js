@@ -90,6 +90,9 @@ window.addEventListener('keydown', (e) => {
         case 'Backspace':
             backspaceButtonPressed()
             break
+        case 'Enter':
+            operate('=')
+            break
     }
 
 })
@@ -114,6 +117,9 @@ function calcs(calc){
 
 function operate(operand){
 
+    if(!previous && operand == '=')
+        return
+
     const temp = operand
 
     if(previous)
@@ -126,15 +132,12 @@ function operate(operand){
         case "*":
         case "÷":
         case "/":
-            optionsOperate(operand)
-            break
         case "=":
-            break;
+            optionsOperate(operand)
+            previous = temp
+            displayLength = 0
+            break
     }
-
-    previous = temp
-    displayLength = 0
-
 
 }
 
@@ -189,7 +192,6 @@ function saveResult(result){
     first = result
     display.textContent = result
     second = null
-    result = null
     displayLength = 0
 }
 
