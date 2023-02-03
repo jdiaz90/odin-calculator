@@ -41,18 +41,12 @@ buttonDecimal.addEventListener('click', () => {
 
 })
 
-buttonClear.addEventListener('click', (e) => {
+buttonClear.addEventListener('click', () => {clearButtonPressed()})
+buttonBackspace.addEventListener('click', () => {backspaceButtonPressed()})
 
-    clearButtonPressed()
-
-})
-
-buttonBackspace.addEventListener('click', (e) => {
-
-    backspaceButtonPressed()
-
-})
-
+window.addEventListener('load', () => centerCalculator())
+window.addEventListener("resize", () => centerCalculator())
+window.addEventListener("fullscreenchange", () => centerCalculator())
 
 window.addEventListener('keydown', (e) => {
 
@@ -248,4 +242,11 @@ function backspaceButtonPressed(){
     text.pop()
     display.textContent = text.join('')
 
+}
+
+function centerCalculator(){
+    const body = document.querySelector('body')
+    const divCase = document.querySelector('.case')
+    let height = `${document.documentElement.scrollHeight - 16}px`
+    body.style.height = height
 }
