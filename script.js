@@ -53,6 +53,16 @@ window.addEventListener('keydown', (e) => {
 
 })
 
+
+window.addEventListener('keydown', (e) => {
+
+    if(e.key === '.'){
+        clearDisplay()  
+        writeDecimal()
+    }
+
+})
+
 let add = () => first + second
 let subtract = () => first - second
 let multiply = () => first * second
