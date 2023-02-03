@@ -120,6 +120,9 @@ function operate(operand){
     if(!previous && operand == '=')
         return
 
+    if(previous == '=')
+        first = parseFloat(display.textContent)
+
     const temp = operand
 
     if(previous)
