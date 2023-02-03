@@ -5,7 +5,7 @@ const buttonClear = document.querySelector('input[type="button"]#clear')
 const buttonBackspace = document.querySelector('button#backspace')
 const display = document.querySelector('#display')
 let first, second, previous
-let count = 0
+let displayLength = 0
 
 let add = () => first + second
 let subtract = () => first - second
@@ -20,10 +20,10 @@ buttonNumbers.forEach(button => {
 
     button.addEventListener('click', (e) => {
 
-        clearDisplay() 
+        checkIfDisplayMustBeEmpty() 
 
         display.textContent = `${display.textContent}${e.target.value}`
-        count++
+        displayLength++
     })
     
 })
@@ -36,7 +36,7 @@ buttonOperands.forEach(button => {
 
 buttonDecimal.addEventListener('click', () => {
 
-    clearDisplay()  
+    checkIfDisplayMustBeEmpty()  
     writeDecimal()
 
 })
@@ -59,10 +59,10 @@ window.addEventListener('keydown', (e) => {
     const character = getKeyboardNumbers().find(element => element === e.key)  
     if(character){
 
-        clearDisplay() 
+        checkIfDisplayMustBeEmpty() 
 
         display.textContent = `${display.textContent}${e.key}`
-        count++
+        displayLength++
 
     }  
 
@@ -80,9 +80,8 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keydown', (e) => {
 
     switch (e.key){
-
         case '.':
-            clearDisplay()  
+            checkIfDisplayMustBeEmpty()  
             writeDecimal()
             break
         case 'Delete':
@@ -122,26 +121,37 @@ function operate(operand){
 
     switch(operand){
         case "+":
-            calcs(add)
-            break
         case "-":
-            calcs(subtract)
-            break
         case "x":
         case "*":
-            calcs(multiply)
-            break
         case "÷":
         case "/":
-            calcs(divide)
+            optionsOperate(operand)
             break
         case "=":
-            
-            break
+            break;
     }
 
     previous = temp
-    count = 0
+    displayLength = 0
+
+
+}
+
+function optionsOperate(operand){
+
+    switch(operand){
+        case "+":
+            return calcs(add)
+        case "-":
+            return calcs(subtract)
+        case "x":
+        case "*":
+            return calcs(multiply)
+        case "÷":
+        case "/":
+            return calcs(divide)
+    }
 
 }
 
@@ -155,14 +165,14 @@ function getKeyboardNumbers(){
 function getKeyboardOperands(){
     let keys = [...document.querySelectorAll('input[type="button"].operand')]
     keys = keys.map(key => key.value) 
-    keys.push('*', '/')
+    keys.push('*', '/','=')
     return keys
 }
 
 function saveFirstNumber(){
     if(display.textContent){
         first = parseFloat(display.textContent)
-        count = 0
+        displayLength = 0
     }
 
 }
@@ -170,7 +180,7 @@ function saveFirstNumber(){
 function saveSecondNumber(){
     if(display.textContent){
         second = parseFloat(display.textContent)
-        count = 0
+        displayLength = 0
     }
 
 }
@@ -180,13 +190,13 @@ function saveResult(result){
     display.textContent = result
     second = null
     result = null
-    count = 0
+    displayLength = 0
 }
 
 function checkDecimal(){
 
     const displayArray = display.textContent.split('')
-    let count = displayArray.reduce((obj, item) =>  {
+    let displayLength = displayArray.reduce((obj, item) =>  {
         if (!obj[item]) {
           obj[item] = 0;
         }
@@ -194,7 +204,7 @@ function checkDecimal(){
         return obj;
       }, {});
     
-    if(count['.'] > 0)
+    if(displayLength['.'] > 0)
         return true
     return false
 
@@ -204,17 +214,17 @@ function writeDecimal(){
 
     if(!checkDecimal()){
 
-        if(count == 0) 
+        if(displayLength == 0) 
             display.textContent = '0' 
 
         display.textContent = `${display.textContent}.`
-        count++
+        displayLength++
     }
 
 }
 
-function clearDisplay(){
-    if(count == 0) 
+function checkIfDisplayMustBeEmpty(){
+    if(displayLength == 0) 
         display.textContent = '' 
 }
 
@@ -223,8 +233,8 @@ function clearButtonPressed(){
     second = null
     result = null
     previous = null
-    count = 0
-    clearDisplay()
+    displayLength = 0
+    checkIfDisplayMustBeEmpty()
 }
 
 function backspaceButtonPressed(){
