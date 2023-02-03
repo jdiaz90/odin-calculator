@@ -1,3 +1,13 @@
+@font-face{
+    font-family:'digital-clock';
+    src: url('./fonts/digital-7.monoitalic.ttf');
+}
+
+@font-face{
+    font-family:'made-gentle';
+    src: url('./fonts/MADE\ Gentle\ PERSONAL\ USE.otf');
+}
+
 .calculator {
     display: flex;
     flex-direction: column;
@@ -30,15 +40,17 @@
     align-items: center;
     border: 1px black solid;
     box-sizing: border-box;
+    font-family: 'digital-clock', Courier, monospace;
+    font-size: 50px;
     height: 50px;
     justify-content: flex-end;
-    margin: auto;
     width: 100%;
 }
 
 .col input[type="button"], .col.double button{
     width: 100%;
     height: 66px;
+    font-family:'made-gentle', Courier, monospace;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 35px;
 }
