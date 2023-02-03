@@ -1,9 +1,19 @@
 const buttonNumbers = document.querySelectorAll('input[type="button"].number')
 const buttonOperands = document.querySelectorAll('input[type="button"].operand')
 const buttonDecimal = document.querySelector('input[type="button"]#decimal')
+const buttonClear = document.querySelector('input[type="button"]#clear')
 const display = document.querySelector('#display')
 let first, second, previous
 let count = 0
+
+let add = () => first + second
+let subtract = () => first - second
+let multiply = () => first * second
+let divide = () => first / second
+
+
+
+
 
 buttonNumbers.forEach(button => {
 
@@ -27,6 +37,12 @@ buttonDecimal.addEventListener('click', () => {
 
     clearDisplay()  
     writeDecimal()
+
+})
+
+buttonClear.addEventListener('click', (e) => {
+
+    clearButtonPressed()
 
 })
 
@@ -56,17 +72,18 @@ window.addEventListener('keydown', (e) => {
 
 window.addEventListener('keydown', (e) => {
 
-    if(e.key === '.'){
-        clearDisplay()  
-        writeDecimal()
+    switch (e.key){
+
+        case '.':
+            clearDisplay()  
+            writeDecimal()
+            break
+        case 'Delete':
+            clearButtonPressed()
+            break
     }
 
 })
-
-let add = () => first + second
-let subtract = () => first - second
-let multiply = () => first * second
-let divide = () => first / second
 
 function calcs(calc){
 
@@ -189,4 +206,13 @@ function writeDecimal(){
 function clearDisplay(){
     if(count == 0) 
         display.textContent = '' 
+}
+
+function clearButtonPressed(){
+    first = null
+    second = null
+    result = null
+    previous = null
+    count = 0
+    clearDisplay()
 }
