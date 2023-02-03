@@ -2,6 +2,7 @@ const buttonNumbers = document.querySelectorAll('input[type="button"].number')
 const buttonOperands = document.querySelectorAll('input[type="button"].operand')
 const buttonDecimal = document.querySelector('input[type="button"]#decimal')
 const buttonClear = document.querySelector('input[type="button"]#clear')
+const buttonBackspace = document.querySelector('button#backspace')
 const display = document.querySelector('#display')
 let first, second, previous
 let count = 0
@@ -46,6 +47,12 @@ buttonClear.addEventListener('click', (e) => {
 
 })
 
+buttonBackspace.addEventListener('click', (e) => {
+
+    backspaceButtonPressed()
+
+})
+
 
 window.addEventListener('keydown', (e) => {
 
@@ -80,6 +87,9 @@ window.addEventListener('keydown', (e) => {
             break
         case 'Delete':
             clearButtonPressed()
+            break
+        case 'Backspace':
+            backspaceButtonPressed()
             break
     }
 
@@ -215,4 +225,12 @@ function clearButtonPressed(){
     previous = null
     count = 0
     clearDisplay()
+}
+
+function backspaceButtonPressed(){
+
+    let text = display.textContent.split('')
+    text.pop()
+    display.textContent = text.join('')
+
 }
